@@ -1,5 +1,5 @@
 # Elyra OS — Live State (agent updates this)
-- Current phase: 3 (System Experience & First-Party Apps) / Local Build Path
+- Current phase: 3 (System Experience & First-Party Apps) & Freedom Layer Engineering
 - Reference device: Google Pixel 7 ("panther") [ADR 0001] / Google Cuttlefish (`x86_64`)
 - Target Android branch: Android 15 (`android-15.0.0_r17`) [ADR 0002]
 - Done:
@@ -12,15 +12,16 @@
   - Implemented Token Compiler (`scripts/generate-tokens.py`) and generated XML/Kotlin Compose themes
   - Built Framework and SystemUI RRO Overlays (`vendor/elyra/overlays/`)
   - Built Elyra System Services AIDL IPC interfaces (`vendor/elyra/services/`)
-  - Built Elyra Security Center app (`vendor/elyra/apps/ElyraSecurityCenter/`)
-  - Built Elyra Privacy Center app (`vendor/elyra/apps/ElyraPrivacyCenter/`)
-  - Built Elyra Launcher home screen app (`vendor/elyra/apps/ElyraLauncher/`)
-  - Built Elyra Files file explorer app (`vendor/elyra/apps/ElyraFiles/`)
-  - Built Elyra System Updater A/B OTA client app (`vendor/elyra/apps/ElyraUpdater/`)
-  - Built Elyra Settings app with AMOLED & trust portals (`vendor/elyra/apps/ElyraSettings/`)
+  - Built 6 core first-party applications (`vendor/elyra/apps/`): Security Center, Privacy Center, Launcher, Files, Updater, Settings
+  - Implemented Quick Settings Tile Services: `PrivacyTileService` (kill-switches) & `AmoledTileService` (true #000000 black)
+  - Implemented standalone Gradle multi-module build suite with version catalog (`libs.versions.toml`) across all apps
+  - Created automated test suites (`tests/test_tokens.py`, `tests/test_architecture.py`) - all 9 tests passing
+  - Authored Freedom Layer guides (`docs/freedom/`): Bootloader unlock & custom AVB relocking, Root integration guide
+  - Authored cross-platform automated flashing scripts (`scripts/flash-elyra.sh`, `scripts/flash-elyra.bat`)
+  - Authored AOSP baseline local manifest (`manifest/default.xml`)
   - Defined SELinux type enforcement policies (`vendor/elyra/sepolicy/private/`)
   - Configured product build manifests (`vendor/elyra/elyra_common.mk`)
   - Authored proprietary License and updated README with developer credit (JOJIN JOHN)
-- In progress: Standalone packaging and build verification
+- In progress: Awaiting user instructions on additional modules or physical device testing
 - Blocked: Monolithic full AOSP system image compile blocked on local storage (42GB free vs 400GB requirement; requires external SSD or cloud runner).
-- Next: Build verification, unit test runner setup, and push to GitHub.
+- Next: Ready for physical device flashing, emulator testing, or advanced custom modules (Gaming mode, Offline AI).

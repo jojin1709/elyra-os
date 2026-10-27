@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <!-- Elyra OS Baseline Manifest for Google Pixel 7 (panther) & Cuttlefish (x86_64) -->
+    <remote name="aosp"
+            fetch="https://android.googlesource.com"
+            review="android-review.googlesource.com"
+            revision="refs/tags/android-15.0.0_r17" />
+
+    <remote name="elyra"
+            fetch="https://github.com/jojin1709"
+            revision="main" />
+
+    <default revision="refs/tags/android-15.0.0_r17"
+             remote="aosp"
+             sync-j="4"
+             sync-c="true" />
+
+    <!-- Reference Device Hardware Trees (Pixel 7 / Tensor G2) -->
+    <project path="device/google/pantah" name="device/google/pantah" groups="device,pantah" remote="aosp" />
+    <project path="device/google/pantah-kernel" name="device/google/pantah-kernel" groups="device,pantah" remote="aosp" />
+
+    <!-- Virtual Target Hardware Trees (Cuttlefish x86_64) -->
+    <project path="device/google/cuttlefish" name="device/google/cuttlefish" groups="device,cuttlefish" remote="aosp" />
+
+    <!-- Elyra OS Custom Vendor Tree -->
+    <project path="vendor/elyra" name="elyra-os" remote="elyra" />
+</manifest>
