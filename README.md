@@ -5,11 +5,12 @@
 
 [![Developer: JOJIN JOHN](https://img.shields.io/badge/Developer-JOJIN_JOHN-10B981.svg?style=flat&logo=github)](https://github.com/jojin1709)
 [![License: Proprietary (JOJIN JOHN)](https://img.shields.io/badge/License-Proprietary_/_All_Rights_Reserved-red.svg)](LICENSE)
+[![CI/CD Pipeline](https://github.com/jojin1709/elyra-os/actions/workflows/ci.yml/badge.svg)](https://github.com/jojin1709/elyra-os/actions/workflows/ci.yml)
+[![Live Simulator](https://img.shields.io/badge/Live_Demo-Pixel_7_Simulator-2D5BFF.svg)](https://jojin1709.github.io/elyra-os/)
 [![Android: 15 (Vanilla Ice Cream)](https://img.shields.io/badge/AOSP-Android_15_(API_35)-3DDC84.svg?logo=android&logoColor=white)](https://source.android.com)
 [![Target: Pixel 7 (panther)](https://img.shields.io/badge/Reference_Device-Pixel_7_(panther)-4285F4.svg?logo=google&logoColor=white)](docs/adr/0001-reference-device.md)
 [![Kernel: GKI Linux 6.1](https://img.shields.io/badge/Kernel-GKI_Linux_6.1-FCC624.svg?logo=linux&logoColor=black)](https://source.android.com/docs/core/architecture/kernel/generic-kernel-image)
 [![Security: SELinux Enforcing](https://img.shields.io/badge/SELinux-Enforcing_Always-E53935.svg)](docs/plans/02-standards-and-testing-strategy.md)
-[![Build: Antigravity Ready](https://img.shields.io/badge/Antigravity-Phase_0_Approved-8E24AA.svg)](docs/STATE.md)
 
 <p align="center">
   <strong>Developed &amp; Engineered by <a href="https://github.com/jojin1709">JOJIN JOHN</a></strong>
