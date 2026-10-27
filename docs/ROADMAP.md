@@ -1,6 +1,6 @@
 # Roadmap + exit criteria (a phase is done ONLY when all boxes pass)
 ## P0 Architecture
-- [ ] Master Architecture doc, repo layout, ADRs for device + Android version, coding standards, test strategy
+- [x] Master Architecture doc, repo layout, ADRs for device + Android version, coding standards, test strategy (Awaiting User Sign-off)
 ## P1 Boot
 - [ ] Cuttlefish boots Elyra build AND reference device boots to home screen, 20 clean reboots
 ## P2 Hardware bring-up

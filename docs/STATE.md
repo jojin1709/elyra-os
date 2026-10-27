@@ -1,8 +1,19 @@
 # Elyra OS — Live State (agent updates this)
-- Current phase: 0 (Architecture)
-- Reference device: NOT CHOSEN
-- Target Android branch: NOT CHOSEN
-- Done: nothing yet
-- In progress: -
-- Blocked: -
-- Next: run /phase0-architecture
+- Current phase: 0 (Architecture) — Pending Confirmation
+- Reference device: Google Pixel 7 ("panther") [Proposed in ADR 0001] / Cuttlefish (x86_64 emulator)
+- Target Android branch: Android 15 (`android-15.0.0_r17`) [Proposed in ADR 0002]
+- Done:
+  - Workspace bootstrapped, `.agents` junction linked, git repository initialized
+  - Loaded 7 specialist roles and 11 Elyra skills
+  - Authored `docs/ELYRA_SPEC.md`
+  - Authored `docs/adr/0001-reference-device.md` (Scored Pixel 7, Pixel 7a, Pixel 8)
+  - Authored `docs/adr/0002-target-android-version.md` (Evaluated Android 14 vs 15)
+  - Authored `docs/ARCHITECTURE.md` (15 layers, 6 modularity tables)
+  - Authored `docs/plans/01-repo-structure-and-build-env.md`
+  - Authored `docs/plans/02-standards-and-testing-strategy.md`
+  - Authored `docs/plans/03-risk-register-and-first-30-tasks.md`
+  - Authored `docs/design/00-design-language.md` & 12-screen UI catalog
+  - Established `vendor/elyra/design/tokens.json`
+- In progress: User confirmation on ADR 0001 (device) and ADR 0002 (Android version)
+- Blocked: Phase 1 gated on user decision approval
+- Next: Awaiting user approval of Phase 0 to begin Phase 1 (Host setup, AOSP sync, baseline boot)
