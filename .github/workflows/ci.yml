@@ -83,8 +83,9 @@ jobs:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Accept Android SDK Licenses
+        run: |
+          yes | sdkmanager --licenses || true
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -110,6 +111,7 @@ jobs:
   # Job 4: Deploy Live Web Simulator to GitHub Pages
   deploy-simulator:
     name: Deploy Live Simulator to GitHub Pages
+    needs: verify-architecture
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -122,6 +124,8 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload Simulator Pages Artifact
         uses: actions/upload-pages-artifact@v3
