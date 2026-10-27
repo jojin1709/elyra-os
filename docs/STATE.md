@@ -31,6 +31,7 @@
   - Launched physical Android phone emulator `Pixel_6` locally with root ADB access (`emulator-5554`)
   - Configured automated cloud partition builder for bootable `elyra-system.img`
   - Successfully built, downloaded, and extracted 2.14 GB real bootable Android OS system image: `D:\custom os\artifacts\system-image\elyra-system.img`
+  - Published official GitHub Release `v1.0.0-alpha` with direct download link at `https://github.com/jojin1709/elyra-os/releases/tag/v1.0.0-alpha`
 - In progress: Ready for direct emulator testing or physical phone flashing
 - Blocked: None
 - Next: Boot emulator with custom image (`emulator -avd Pixel_6 -system "D:\custom os\artifacts\system-image\elyra-system.img"`) or flash real phone via `fastboot flash system elyra-system.img`.
