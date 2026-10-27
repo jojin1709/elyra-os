@@ -159,6 +159,14 @@ jobs:
           path: out/elyra-system-image.tar.gz
           retention-days: 14
 
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: "v1.0.0-alpha"
+          name: "Elyra OS v1.0.0-alpha — Bootable System Image"
+          files: out/elyra-system-image.tar.gz
+
   # Job 4: Deploy Live Web Simulator to GitHub Pages
   deploy-simulator:
     name: Deploy Live Simulator to GitHub Pages
