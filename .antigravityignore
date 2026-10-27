@@ -1,0 +1,7 @@
+out/
+.repo/
+*.img
+*.zip
+*.tar.gz
+logs/
+aosp/
