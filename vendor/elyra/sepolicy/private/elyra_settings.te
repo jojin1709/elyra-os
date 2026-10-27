@@ -1,0 +1,9 @@
+# Domain for Elyra Settings application
+type elyra_settings, domain, coredomain;
+
+app_domain(elyra_settings)
+
+# Allow reading system properties and managing settings
+get_prop(elyra_settings, build_prop)
+allow elyra_settings setting_service:service_manager find;
+allow elyra_settings app_api_service:service_manager find;

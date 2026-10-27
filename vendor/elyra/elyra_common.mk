@@ -5,7 +5,9 @@ PRODUCT_MANUFACTURER := ElyraOS
 # Core First-Party Packages
 PRODUCT_PACKAGES += \
     ElyraLauncher \
+    ElyraSettings \
     ElyraFiles \
+    ElyraUpdater \
     ElyraSecurityCenter \
     ElyraPrivacyCenter \
     ElyraFrameworkOverlay \

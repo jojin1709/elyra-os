@@ -1,0 +1,13 @@
+# Domain for Elyra System Updater application
+type elyra_updater, domain, coredomain;
+
+app_domain(elyra_updater)
+
+# Allow network access for update checks
+net_domain(elyra_updater)
+
+# Allow update_engine binding and reboot initiation
+allow elyra_updater update_engine_service:service_manager find;
+allow elyra_updater power_service:service_manager find;
+allow elyra_updater recovery_service:service_manager find;
+allow elyra_updater app_api_service:service_manager find;

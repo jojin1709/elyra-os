@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Settings</string>
+    <string name="settings_title">Settings</string>
+    <string name="search_settings_hint">Search settings…</string>
+
+    <string name="group_elyra_experience">Elyra Experience</string>
+    <string name="amoled_theme_title">Pure AMOLED Black Theme</string>
+    <string name="amoled_theme_desc">Deep #000000 background surfaces</string>
+    <string name="accent_color_title">Accent Color</string>
+    <string name="accent_color_desc">Calm Indigo Blue (#2D5BFF)</string>
+    <string name="gestures_title">System Gestures</string>
+    <string name="gestures_desc">Edge navigation, 3-button, swipe actions</string>
+
+    <string name="group_trust">Privacy &amp; Security</string>
+    <string name="privacy_center_title">Privacy Center</string>
+    <string name="privacy_center_desc">Sensor kill-switches &amp; clipboard auditor</string>
+    <string name="security_center_title">Security Center</string>
+    <string name="security_center_desc">Verified boot, SELinux &amp; encryption state</string>
+
+    <string name="group_system">Device &amp; System</string>
+    <string name="system_update_title">System Updates</string>
+    <string name="system_update_desc">Elyra OS 1.0.0-alpha • A/B update engine</string>
+    <string name="about_phone_title">About Phone</string>
+    <string name="about_phone_desc">Hardware: Pixel 7 (panther) • Android 15</string>
+</resources>

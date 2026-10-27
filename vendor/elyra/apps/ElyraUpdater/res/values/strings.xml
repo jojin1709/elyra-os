@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">System Updater</string>
+    <string name="updater_title">Elyra OS Updates</string>
+    <string name="up_to_date_title">Your system is up to date</string>
+    <string name="up_to_date_desc">You are running the latest official Elyra OS release.</string>
+    <string name="check_updates_btn">Check for updates</string>
+    <string name="checking_updates">Checking for updates…</string>
+    <string name="update_available_title">Update Available: Elyra OS 1.0.1</string>
+    <string name="install_update_btn">Download &amp; Install</string>
+    <string name="restart_to_apply">Restart to complete update</string>
+    <string name="restart_btn">Restart now</string>
+    <string name="ab_seamless_notice">Seamless A/B update with automated rollback protection.</string>
+    <string name="changelog_title">What\'s New</string>
+    <string name="battery_safety_warning">Battery must be at least 50% to apply updates.</string>
+</resources>

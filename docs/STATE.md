@@ -16,9 +16,11 @@
   - Built Elyra Privacy Center app (`vendor/elyra/apps/ElyraPrivacyCenter/`)
   - Built Elyra Launcher home screen app (`vendor/elyra/apps/ElyraLauncher/`)
   - Built Elyra Files file explorer app (`vendor/elyra/apps/ElyraFiles/`)
+  - Built Elyra System Updater A/B OTA client app (`vendor/elyra/apps/ElyraUpdater/`)
+  - Built Elyra Settings app with AMOLED & trust portals (`vendor/elyra/apps/ElyraSettings/`)
   - Defined SELinux type enforcement policies (`vendor/elyra/sepolicy/private/`)
   - Configured product build manifests (`vendor/elyra/elyra_common.mk`)
   - Authored proprietary License and updated README with developer credit (JOJIN JOHN)
-- In progress: Building Elyra Settings and Updater clients
+- In progress: Standalone packaging and build verification
 - Blocked: Monolithic full AOSP system image compile blocked on local storage (42GB free vs 400GB requirement; requires external SSD or cloud runner).
-- Next: Build `ElyraSettings` and `ElyraUpdater`, then push all updates to GitHub.
+- Next: Build verification, unit test runner setup, and push to GitHub.
