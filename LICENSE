@@ -1,0 +1,42 @@
+Copyright (c) 2026 JOJIN JOHN. All Rights Reserved.
+
+PROPRIETARY AND CONFIDENTIAL SOURCE CODE LICENSE
+
+NOTICE TO ALL USERS, DEVELOPERS, AND RECIPIENTS:
+
+This software, source code, documentation, architecture designs, token specifications, 
+user interfaces, and associated media ("Software") are the exclusive intellectual 
+property and proprietary assets of JOJIN JOHN.
+
+TERMS AND CONDITIONS OF USE:
+
+1. PROHIBITION OF MODIFICATION:
+   No person, entity, or organization is permitted to modify, alter, adapt, translate, 
+   decompile, disassemble, or create derivative works from this Software, in whole 
+   or in part, without prior explicit written permission from JOJIN JOHN.
+
+2. PROHIBITION OF REDISTRIBUTION:
+   No person, entity, or organization is permitted to copy, duplicate, redistribute, 
+   publish, mirror, sublicense, sell, lease, or host this Software, in source code 
+   or binary form, publicly or privately, without prior explicit written permission 
+   from JOJIN JOHN.
+
+3. RESERVATION OF RIGHTS:
+   All rights, titles, and interests in and to this Software, including all copyrights, 
+   trademarks, trade secrets, patents, and other intellectual property rights, 
+   remain solely and exclusively with JOJIN JOHN.
+
+4. UPSTREAM THIRD-PARTY COMPONENTS:
+   Any unmodified upstream Android Open Source Project (AOSP) code or Linux kernel 
+   components referenced or linked by this repository remain subject to their 
+   respective upstream licenses (Apache 2.0 and GPLv2). All custom Elyra OS first-party 
+   applications, system services, RRO overlays, design tokens, architecture designs, 
+   and documentation are strictly proprietary to JOJIN JOHN.
+
+5. DISCLAIMER OF WARRANTY:
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER "AS IS" WITHOUT ANY WARRANTIES 
+   OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+For licensing inquiries, permissions, or authorizations, contact:
+JOJIN JOHN (https://github.com/jojin1709)
