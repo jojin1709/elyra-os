@@ -14,8 +14,11 @@
   - Built Elyra System Services AIDL IPC interfaces (`vendor/elyra/services/`)
   - Built Elyra Security Center app (`vendor/elyra/apps/ElyraSecurityCenter/`)
   - Built Elyra Privacy Center app (`vendor/elyra/apps/ElyraPrivacyCenter/`)
+  - Built Elyra Launcher home screen app (`vendor/elyra/apps/ElyraLauncher/`)
+  - Built Elyra Files file explorer app (`vendor/elyra/apps/ElyraFiles/`)
   - Defined SELinux type enforcement policies (`vendor/elyra/sepolicy/private/`)
   - Configured product build manifests (`vendor/elyra/elyra_common.mk`)
-- In progress: Building Elyra Launcher (Launcher3 Quickstep integration)
+  - Authored proprietary License and updated README with developer credit (JOJIN JOHN)
+- In progress: Building Elyra Settings and Updater clients
 - Blocked: Monolithic full AOSP system image compile blocked on local storage (42GB free vs 400GB requirement; requires external SSD or cloud runner).
-- Next: Build `ElyraLauncher` and `ElyraFiles`, then push all updates to GitHub.
+- Next: Build `ElyraSettings` and `ElyraUpdater`, then push all updates to GitHub.

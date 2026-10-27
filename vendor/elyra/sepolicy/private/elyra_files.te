@@ -1,0 +1,11 @@
+# Domain for Elyra Files system application
+type elyra_files, domain, coredomain;
+
+app_domain(elyra_files)
+
+# Allow storage access and filesystem queries
+allow elyra_files storage_service:service_manager find;
+allow elyra_files mount_service:service_manager find;
+allow elyra_files media_rw_data_file:dir create_dir_perms;
+allow elyra_files media_rw_data_file:file create_file_perms;
+allow elyra_files app_api_service:service_manager find;

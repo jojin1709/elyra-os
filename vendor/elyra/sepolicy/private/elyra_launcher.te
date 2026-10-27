@@ -1,0 +1,10 @@
+# Domain for Elyra Launcher system application
+type elyra_launcher, domain, coredomain;
+
+app_domain(elyra_launcher)
+
+# Allow querying installed packages and activities
+allow elyra_launcher package_service:service_manager find;
+allow elyra_launcher activity_service:service_manager find;
+allow elyra_launcher app_api_service:service_manager find;
+allow elyra_launcher surfaceflinger_service:service_manager find;
