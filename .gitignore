@@ -36,6 +36,12 @@ Thumbs.db
 *.iml
 .vscode/
 
+# Build artifacts & ROM images
+artifacts/
+*.img
+*.tar.gz
+
+
 # Logs
 logs/
 *.log
