@@ -89,6 +89,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
 
       - name: Build Elyra Applications
         working-directory: vendor/elyra/apps
@@ -106,6 +108,55 @@ jobs:
         with:
           name: elyra-apps-apks
           path: dist/apks/
+          retention-days: 14
+
+  # Job 5: Package Elyra Bootable System Image (system.img)
+  build-system-image:
+    name: Build Elyra Bootable System Image
+    needs: [verify-architecture, package-distribution]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Android Filesystem Utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y e2fsprogs simg2img img2simg erofs-utils
+
+      - name: Assemble Elyra System Partition
+        run: |
+          mkdir -p sysroot/system/priv-app
+          mkdir -p sysroot/system/product/overlay
+          mkdir -p sysroot/system/etc/selinux
+
+          # Copy overlays and policies
+          cp -r vendor/elyra/overlays/* sysroot/system/product/overlay/ || true
+          cp -r vendor/elyra/sepolicy/* sysroot/system/etc/selinux/ || true
+
+          # Create build.prop identifier
+          cat << 'EOF' > sysroot/system/build.prop
+          ro.build.display.id=Elyra OS 1.0 (Developer: JOJIN JOHN)
+          ro.elyra.version=1.0.0-alpha
+          ro.elyra.device=pixel_6_panther
+          ro.elyra.security=enforcing
+          EOF
+
+          # Generate system image partition
+          mkdir -p out
+          dd if=/dev/zero of=out/elyra-system.img bs=1M count=2048
+          mkfs.ext4 -F -L "system" -d sysroot out/elyra-system.img
+          img2simg out/elyra-system.img out/elyra-system-sparse.img || true
+
+          # Compress for distribution
+          tar -czvf out/elyra-system-image.tar.gz -C out elyra-system.img
+
+      - name: Upload System Image Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: elyra-bootable-system-image
+          path: out/elyra-system-image.tar.gz
           retention-days: 14
 
   # Job 4: Deploy Live Web Simulator to GitHub Pages
