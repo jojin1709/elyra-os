@@ -1,0 +1,12 @@
+# Domain for Elyra Security Center privileged system application
+type elyra_security_center, domain, coredomain;
+
+app_domain(elyra_security_center)
+
+# Allow reading system security properties (AVB, flash locked, patch level)
+get_prop(elyra_security_center, boot_status_prop)
+get_prop(elyra_security_center, build_prop)
+
+# Allow binding to platform services
+allow elyra_security_center app_api_service:service_manager find;
+allow elyra_security_center surfaceflinger_service:service_manager find;

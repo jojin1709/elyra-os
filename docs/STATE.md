@@ -1,19 +1,21 @@
 # Elyra OS — Live State (agent updates this)
-- Current phase: 0 (Architecture) — Pending Confirmation
-- Reference device: Google Pixel 7 ("panther") [Proposed in ADR 0001] / Cuttlefish (x86_64 emulator)
-- Target Android branch: Android 15 (`android-15.0.0_r17`) [Proposed in ADR 0002]
+- Current phase: 3 (System Experience & First-Party Apps) / Local Build Path
+- Reference device: Google Pixel 7 ("panther") [ADR 0001] / Google Cuttlefish (`x86_64`)
+- Target Android branch: Android 15 (`android-15.0.0_r17`) [ADR 0002]
 - Done:
-  - Workspace bootstrapped, `.agents` junction linked, git repository initialized
-  - Loaded 7 specialist roles and 11 Elyra skills
-  - Authored `docs/ELYRA_SPEC.md`
-  - Authored `docs/adr/0001-reference-device.md` (Scored Pixel 7, Pixel 7a, Pixel 8)
-  - Authored `docs/adr/0002-target-android-version.md` (Evaluated Android 14 vs 15)
-  - Authored `docs/ARCHITECTURE.md` (15 layers, 6 modularity tables)
-  - Authored `docs/plans/01-repo-structure-and-build-env.md`
-  - Authored `docs/plans/02-standards-and-testing-strategy.md`
-  - Authored `docs/plans/03-risk-register-and-first-30-tasks.md`
-  - Authored `docs/design/00-design-language.md` & 12-screen UI catalog
-  - Established `vendor/elyra/design/tokens.json`
-- In progress: User confirmation on ADR 0001 (device) and ADR 0002 (Android version)
-- Blocked: Phase 1 gated on user decision approval
-- Next: Awaiting user approval of Phase 0 to begin Phase 1 (Host setup, AOSP sync, baseline boot)
+  - Bootstrapped workspace and Git tracking repository; pushed to private GitHub repository `jojin1709/elyra-os`
+  - Created Master Product Specification (`docs/ELYRA_SPEC.md`)
+  - Created ADR 0001 (Reference Device) & ADR 0002 (Target Android Version)
+  - Created Master Architecture Specification (`docs/ARCHITECTURE.md`) with 15 layers and 6 modularity matrices
+  - Created Design Language Specification (`docs/design/00-design-language.md`) and 12-screen UI catalog
+  - Created Single-Source Design Tokens (`vendor/elyra/design/tokens.json`)
+  - Implemented Token Compiler (`scripts/generate-tokens.py`) and generated XML/Kotlin Compose themes
+  - Built Framework and SystemUI RRO Overlays (`vendor/elyra/overlays/`)
+  - Built Elyra System Services AIDL IPC interfaces (`vendor/elyra/services/`)
+  - Built Elyra Security Center app (`vendor/elyra/apps/ElyraSecurityCenter/`)
+  - Built Elyra Privacy Center app (`vendor/elyra/apps/ElyraPrivacyCenter/`)
+  - Defined SELinux type enforcement policies (`vendor/elyra/sepolicy/private/`)
+  - Configured product build manifests (`vendor/elyra/elyra_common.mk`)
+- In progress: Building Elyra Launcher (Launcher3 Quickstep integration)
+- Blocked: Monolithic full AOSP system image compile blocked on local storage (42GB free vs 400GB requirement; requires external SSD or cloud runner).
+- Next: Build `ElyraLauncher` and `ElyraFiles`, then push all updates to GitHub.

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Elyra OS Framework Configuration Overlays -->
+<resources>
+    <!-- Default rounded corner radius for system dialogs, cards and sheets -->
+    <dimen name="rounded_corner_radius">16dp</dimen>
+    <dimen name="dialog_corner_radius">28dp</dimen>
+
+    <!-- Speed up transition animations slightly for flagship responsiveness (0.8x standard feel) -->
+    <item name="config_windowAnimationScale" format="float" type="dimen">1.0</item>
+    <item name="config_transitionAnimationScale" format="float" type="dimen">1.0</item>
+    <item name="config_animatorDurationScale" format="float" type="dimen">1.0</item>
+
+    <!-- Enable night mode / dark theme by default -->
+    <bool name="config_nightModeAvailable">true</bool>
+
+    <!-- Disable carrier provisioning requirements for tethering -->
+    <bool name="config_dontCheckTetheringReadiness">true</bool>
+
+    <!-- Enable edge-to-edge system insets -->
+    <bool name="config_enableEdgeToEdgeOnBackHandling">true</bool>
+</resources>

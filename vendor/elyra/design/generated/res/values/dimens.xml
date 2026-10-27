@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto-generated from tokens.json. Do not edit directly. -->
+<resources>
+    <dimen name="elyra_spacing_4dp">4dp</dimen>
+    <dimen name="elyra_spacing_8dp">8dp</dimen>
+    <dimen name="elyra_spacing_12dp">12dp</dimen>
+    <dimen name="elyra_spacing_16dp">16dp</dimen>
+    <dimen name="elyra_spacing_20dp">20dp</dimen>
+    <dimen name="elyra_spacing_24dp">24dp</dimen>
+    <dimen name="elyra_spacing_32dp">32dp</dimen>
+    <dimen name="elyra_spacing_48dp">48dp</dimen>
+    <dimen name="elyra_radius_small">8dp</dimen>
+    <dimen name="elyra_radius_card">16dp</dimen>
+    <dimen name="elyra_radius_sheet">28dp</dimen>
+    <dimen name="elyra_radius_pill">9999dp</dimen>
+</resources>

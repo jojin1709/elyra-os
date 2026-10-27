@@ -1,0 +1,9 @@
+# Domain for Elyra Privacy Center privileged system application
+type elyra_privacy_center, domain, coredomain;
+
+app_domain(elyra_privacy_center)
+
+# Allow sensor privacy management
+allow elyra_privacy_center sensor_privacy_service:service_manager find;
+allow elyra_privacy_center appops_service:service_manager find;
+allow elyra_privacy_center app_api_service:service_manager find;

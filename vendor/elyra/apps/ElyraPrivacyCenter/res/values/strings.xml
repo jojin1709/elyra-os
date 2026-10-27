@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Privacy Center</string>
+    <string name="privacy_title">Privacy &amp; Data Control</string>
+    <string name="hardware_killswitches">Hardware Sensors</string>
+    <string name="camera_killswitch_title">Camera Access</string>
+    <string name="camera_killswitch_desc">Disable camera hardware sensor system-wide</string>
+    <string name="mic_killswitch_title">Microphone Access</string>
+    <string name="mic_killswitch_desc">Mute all microphone audio input system-wide</string>
+    <string name="clipboard_audit_title">Clipboard Access Auditor</string>
+    <string name="clipboard_audit_desc">Tracks apps reading your copied text</string>
+    <string name="recent_sensor_activity">Recent Sensor Activity</string>
+    <string name="zero_telemetry_title">Zero Non-Consensual Telemetry</string>
+    <string name="zero_telemetry_desc">Elyra OS does not collect diagnostic metrics, advertising identifiers, or background location pings.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto-generated from tokens.json. Do not edit directly. -->
+<resources>
+    <color name="elyra_surface">#FFFFFF</color>
+    <color name="elyra_surfaceVariant">#F1F3F5</color>
+    <color name="elyra_onSurface">#1A1D20</color>
+    <color name="elyra_onSurfaceVariant">#5F6368</color>
+    <color name="elyra_primary">#2D5BFF</color>
+    <color name="elyra_onPrimary">#FFFFFF</color>
+    <color name="elyra_secondary">#4A5568</color>
+    <color name="elyra_outline">#E2E8F0</color>
+    <color name="elyra_success">#10B981</color>
+    <color name="elyra_warning">#F59E0B</color>
+    <color name="elyra_error">#EF4444</color>
+</resources>

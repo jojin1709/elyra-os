@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Security Center</string>
+    <string name="security_overview">Security &amp; Integrity</string>
+    <string name="status_secure">Verified &amp; Protected</string>
+    <string name="status_warning">Modified / Advanced Mode</string>
+    <string name="status_compromised">Integrity Compromised</string>
+
+    <string name="avb_title">Android Verified Boot</string>
+    <string name="avb_desc_locked">Bootloader locked with cryptographic signature verification.</string>
+    <string name="avb_desc_yellow">Locked with custom AVB root-of-trust key.</string>
+    <string name="avb_desc_unlocked">Bootloader unlocked. Operating system modifications permitted.</string>
+
+    <string name="selinux_title">SELinux Policy Engine</string>
+    <string name="selinux_enforcing">Enforcing (Mandatory Access Control active)</string>
+    <string name="selinux_permissive">Permissive (Debug only, not recommended)</string>
+
+    <string name="encryption_title">Storage Encryption</string>
+    <string name="encryption_fbe">File-Based Encryption (FBE) active</string>
+
+    <string name="patch_level_title">Security Patch Level</string>
+    <string name="root_status_title">Root &amp; Superuser</string>
+    <string name="root_detected">Root access installed (Superuser available)</string>
+    <string name="root_not_detected">No root binaries detected</string>
+
+    <string name="adb_status_title">Developer Options &amp; ADB</string>
+    <string name="adb_active">USB / Wireless Debugging is active</string>
+    <string name="adb_inactive">USB Debugging disabled</string>
+
+    <string name="unlocked_banner_title">Your Device. Your Rules.</string>
+    <string name="unlocked_banner_desc">Your bootloader is unlocked or running custom keys. Applications relying on locked Play Integrity may report warnings, but your hardware remains fully under your control.</string>
+</resources>

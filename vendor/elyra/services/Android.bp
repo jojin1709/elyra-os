@@ -1,0 +1,41 @@
+aidl_interface {
+    name: "org.elyra.security-aidl",
+    srcs: ["aidl/org/elyra/security/*.aidl"],
+    unstable: true,
+    backend: {
+        java: {
+            enabled: true,
+            platform_apis: true,
+        },
+        cpp: {
+            enabled: true,
+        },
+        ndk: {
+            enabled: true,
+        },
+        rust: {
+            enabled: true,
+        },
+    },
+}
+
+aidl_interface {
+    name: "org.elyra.privacy-aidl",
+    srcs: ["aidl/org/elyra/privacy/*.aidl"],
+    unstable: true,
+    backend: {
+        java: {
+            enabled: true,
+            platform_apis: true,
+        },
+        cpp: {
+            enabled: true,
+        },
+        ndk: {
+            enabled: true,
+        },
+        rust: {
+            enabled: true,
+        },
+    },
+}
