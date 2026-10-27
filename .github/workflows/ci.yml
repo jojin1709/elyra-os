@@ -123,7 +123,7 @@ jobs:
       - name: Install Android Filesystem Utilities
         run: |
           sudo apt-get update
-          sudo apt-get install -y e2fsprogs simg2img img2simg erofs-utils
+          sudo apt-get install -y e2fsprogs android-sdk-libsparse-utils erofs-utils || true
 
       - name: Assemble Elyra System Partition
         run: |
