@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elyra OS — Live Interactive System Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --elyra-primary: #2D5BFF;
+            --elyra-primary-dark: #4B73FF;
+            --elyra-success: #10B981;
+            --elyra-warning: #F59E0B;
+            --elyra-error: #EF4444;
+            --bg-page: #0B0E14;
+            --text-page: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-page);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        .workspace-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            max-width: 1400px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        /* Control Panel */
+        .controls-panel {
+            background: #141923;
+            border: 1px solid #1E293B;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .controls-header {
+            margin-bottom: 24px;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(45, 91, 255, 0.15);
+            color: var(--elyra-primary-dark);
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .controls-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+        }
+
+        .controls-tagline {
+            font-size: 14px;
+            color: #94A3B8;
+        }
+
+        .author-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin: 16px 0 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-box span {
+            font-size: 13px;
+            color: #34D399;
+            font-weight: 500;
+        }
+
+        .control-section {
+            margin-bottom: 20px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748B;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .pill-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-pill {
+            background: #1E293B;
+            color: #94A3B8;
+            border: 1px solid transparent;
+            padding: 8px 14px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .btn-pill:hover {
+            color: #FFFFFF;
+            background: #283548;
+        }
+
+        .btn-pill.active {
+            background: var(--elyra-primary);
+            color: #FFFFFF;
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(45, 91, 255, 0.3);
+        }
+
+        .specs-grid {
+            background: #0D111A;
+            border-radius: 16px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .spec-item .k { color: #64748B; }
+        .spec-item .v { color: #E2E8F0; font-weight: 600; margin-top: 2px; }
+
+        /* Smartphone Frame (Google Pixel 7) */
+        .phone-frame {
+            position: relative;
+            width: 380px;
+            height: 780px;
+            background: #000000;
+            border-radius: 48px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 2px #334155,
+                0 0 0 6px #1E293B,
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 80px rgba(45, 91, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Screen Glass */
+        .screen {
+            position: relative;
+            flex: 1;
+            border-radius: 38px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease;
+        }
+
+        /* Themes */
+        .theme-light {
+            --ui-bg: #FFFFFF;
+            --ui-card: #F1F3F5;
+            --ui-text: #1A1D20;
+            --ui-text-sub: #5F6368;
+            --ui-outline: #E2E8F0;
+            --ui-accent: #2D5BFF;
+        }
+
+        .theme-dark {
+            --ui-bg: #121417;
+            --ui-card: #1B1E22;
+            --ui-text: #E8EAED;
+            --ui-text-sub: #9AA0A6;
+            --ui-outline: #2D3748;
+            --ui-accent: #4B73FF;
+        }
+
+        .theme-amoled {
+            --ui-bg: #000000;
+            --ui-card: #0D0E10;
+            --ui-text: #F1F3F4;
+            --ui-text-sub: #9AA0A6;
+            --ui-outline: #26292E;
+            --ui-accent: #4B73FF;
+        }
+
+        /* Top Status Bar */
+        .status-bar {
+            height: 38px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 100;
+            color: var(--ui-text);
+            cursor: pointer;
+        }
+
+        .camera-cutout {
+            width: 12px;
+            height: 12px;
+            background: #000000;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 10px;
+            z-index: 101;
+            box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .privacy-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--elyra-success);
+            display: none;
+        }
+
+        .privacy-dot.active {
+            display: block;
+            box-shadow: 0 0 6px var(--elyra-success);
+        }
+
+        /* Screen Content Viewport */
+        .content-area {
+            flex: 1;
+            background: var(--ui-bg);
+            color: var(--ui-text);
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-area::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Bottom Nav Gesture Pill */
+        .gesture-bar-container {
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--ui-bg);
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .gesture-pill {
+            width: 72px;
+            height: 4px;
+            border-radius: 9999px;
+            background: var(--ui-text-sub);
+            opacity: 0.4;
+            transition: opacity 0.2s;
+        }
+
+        .gesture-bar-container:hover .gesture-pill {
+            opacity: 0.8;
+        }
+
+        /* SCREENS */
+        .screen-view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            padding: 16px 20px;
+            animation: fadeIn 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .screen-view.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 1. Launcher Screen */
+        .launcher-view {
+            background-size: cover;
+            background-position: center;
+            justify-content: space-between;
+            padding-bottom: 12px;
+        }
+
+        .launcher-clock {
+            margin-top: 36px;
+        }
+
+        .launcher-time {
+            font-size: 58px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            line-height: 1;
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .launcher-date {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 6px;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .launcher-dock {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .dock-apps-row {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .dock-app-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.15s ease;
+        }
+
+        .dock-app-icon:active {
+            transform: scale(0.92);
+        }
+
+        .search-pill-btn {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 9999px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* App Drawer Modal */
+        .drawer-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 150;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .drawer-overlay.open {
+            display: flex;
+        }
+
+        .drawer-sheet {
+            background: var(--ui-bg);
+            border-radius: 32px 32px 0 0;
+            padding: 16px 20px 24px 20px;
+            max-height: 85%;
+            overflow-y: auto;
+            border-top: 1px solid var(--ui-outline);
+            animation: slideUp 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .drawer-handle {
+            width: 36px;
+            height: 4px;
+            border-radius: 9999px;
+            background: var(--ui-text-sub);
+            opacity: 0.3;
+            margin: 0 auto 16px auto;
+        }
+
+        .drawer-search {
+            background: var(--ui-card);
+            border-radius: 9999px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: var(--ui-text-sub);
+            margin-bottom: 16px;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px 8px;
+            text-align: center;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .app-item-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: var(--ui-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 6px;
+            border: 1px solid var(--ui-outline);
+        }
+
+        .app-item-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--ui-text);
+            max-width: 68px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Generic App Header */
+        .app-header {
+            margin-bottom: 16px;
+        }
+
+        .app-title {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .app-subtitle {
+            font-size: 13px;
+            color: var(--ui-text-sub);
+            margin-top: 2px;
+        }
+
+        /* Card System */
+        .elyra-card {
+            background: var(--ui-card);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--ui-outline);
+        }
+
+        .hero-status-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .status-glyph-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metric-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .metric-sub {
+            font-size: 12px;
+            color: var(--ui-text-sub);
+            margin-top: 2px;
+        }
+
+        /* Switches */
+        .switch-toggle {
+            position: relative;
+            width: 44px;
+            height: 26px;
+            background: var(--ui-outline);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .switch-toggle.on {
+            background: var(--elyra-primary);
+        }
+
+        .switch-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .switch-toggle.on .switch-thumb {
+            transform: translateX(18px);
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: var(--ui-outline);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--elyra-primary);
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+
+        .action-btn-primary {
+            background: var(--elyra-primary);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 9999px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .action-btn-primary:active {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+
+<div class="workspace-container">
+    <!-- Controls Side Panel -->
+    <div class="controls-panel">
+        <div class="controls-header">
+            <div class="brand-badge">⚡ ELYRA OS v1.0</div>
+            <div class="controls-title">Interactive OS Preview</div>
+            <div class="controls-tagline">"Your device. Your rules."</div>
+        </div>
+
+        <div class="author-box">
+            <span>👤 Lead Architect &amp; Developer: <strong>JOJIN JOHN</strong></span>
+        </div>
+
+        <!-- App Switcher -->
+        <div class="control-section">
+            <div class="section-label">Switch Active Screen</div>
+            <div class="pill-group" id="screen-nav">
+                <button class="btn-pill active" onclick="switchScreen('launcher')">🏠 Launcher</button>
+                <button class="btn-pill" onclick="switchScreen('security')">🔒 Security Center</button>
+                <button class="btn-pill" onclick="switchScreen('privacy')">🛡️ Privacy Center</button>
+                <button class="btn-pill" onclick="switchScreen('files')">📁 Files</button>
+                <button class="btn-pill" onclick="switchScreen('updater')">⚡ Updater</button>
+                <button class="btn-pill" onclick="switchScreen('settings')">⚙️ Settings</button>
+            </div>
+        </div>
+
+        <!-- Theme Selector -->
+        <div class="control-section">
+            <div class="section-label">Display Theme (tokens.json)</div>
+            <div class="pill-group" id="theme-nav">
+                <button class="btn-pill" onclick="setTheme('light')">☀️ Light</button>
+                <button class="btn-pill" onclick="setTheme('dark')">🌙 Soft Dark</button>
+                <button class="btn-pill active" onclick="setTheme('amoled')">🖤 Pure AMOLED</button>
+            </div>
+        </div>
+
+        <!-- Security AVB State Simulation -->
+        <div class="control-section">
+            <div class="section-label">Simulate AVB Verified Boot Grade</div>
+            <div class="pill-group">
+                <button class="btn-pill active" onclick="setBootGrade('green')">🟢 Green (Locked)</button>
+                <button class="btn-pill" onclick="setBootGrade('yellow')">🟡 Yellow (Custom Key)</button>
+                <button class="btn-pill" onclick="setBootGrade('orange')">🟠 Orange (Unlocked)</button>
+            </div>
+        </div>
+
+        <!-- Hardware Specs -->
+        <div class="control-section">
+            <div class="section-label">Reference Target Specifications</div>
+            <div class="specs-grid">
+                <div class="spec-item"><div class="k">Hardware</div><div class="v">Pixel 7 (panther)</div></div>
+                <div class="spec-item"><div class="k">Platform</div><div class="v">Android 15 (API 35)</div></div>
+                <div class="spec-item"><div class="k">Kernel</div><div class="v">Linux 6.1 GKI</div></div>
+                <div class="spec-item"><div class="k">SELinux</div><div class="v">Enforcing (Strict)</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phone Simulator Frame -->
+    <div class="phone-frame">
+        <div class="screen theme-amoled" id="phone-screen">
+            <!-- Cutout -->
+            <div class="camera-cutout"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar" id="phone-status-bar">
+                <div id="status-clock">9:41</div>
+                <div class="status-icons">
+                    <div class="privacy-dot" id="dot-camera" title="Camera Sensor Active"></div>
+                    <div class="privacy-dot" id="dot-mic" title="Microphone Sensor Active"></div>
+                    <span>5G</span>
+                    <span>94%</span>
+                </div>
+            </div>
+
+            <!-- Viewport Container -->
+            <div class="content-area">
+
+                <!-- 1. LAUNCHER SCREEN -->
+                <div class="screen-view launcher-view active" id="view-launcher" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');">
+                    <div class="launcher-clock">
+                        <div class="launcher-time" id="launcher-clock-display">09:41</div>
+                        <div class="launcher-date" id="launcher-date-display">Tuesday, October 27</div>
+                    </div>
+
+                    <div class="launcher-dock">
+                        <div class="dock-apps-row">
+                            <div class="dock-app-icon" onclick="switchScreen('security')">🔒</div>
+                            <div class="dock-app-icon" onclick="switchScreen('privacy')">🛡️</div>
+                            <div class="dock-app-icon" onclick="switchScreen('files')">📁</div>
+                            <div class="dock-app-icon" onclick="switchScreen('settings')">⚙️</div>
+                        </div>
+
+                        <div class="search-pill-btn" onclick="toggleAppDrawer(true)">
+                            <span>🔍</span>
+                            <span>Search apps or swipe up…</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. SECURITY CENTER -->
+                <div class="screen-view" id="view-security">
+                    <div class="app-header">
+                        <div class="app-title">Security Center</div>
+                        <div class="app-subtitle">Cryptographic &amp; Hardware Integrity</div>
+                    </div>
+
+                    <div class="elyra-card hero-status-card" id="security-hero-card">
+                        <div class="status-glyph-circle" id="security-hero-glyph" style="background: rgba(16, 185, 129, 0.15); color: #10B981;">🛡️</div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 16px;" id="security-hero-title">Verified &amp; Protected</div>
+                            <div style="font-size: 12px; color: var(--ui-text-sub);" id="security-hero-sub">Titan M2 Root of Trust Enforced</div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" id="security-banner-card" style="background: rgba(245, 158, 11, 0.12); display: none;">
+                        <div style="font-weight: 600; font-size: 13px; margin-bottom: 2px;">Your device. Your rules.</div>
+                        <div style="font-size: 11px; line-height: 1.4; color: var(--ui-text-sub);">
+                            Your bootloader is running with a custom AVB root-of-trust key. Your device remains fully verified.
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; color: var(--ui-text-sub); margin: 6px 0;">INTEGRITY METRICS</div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Android Verified Boot</div>
+                                <div class="metric-sub" id="avb-metric-sub">Bootloader verified with signature</div>
+                            </div>
+                            <div class="badge-pill" id="avb-badge" style="background: rgba(16, 185, 129, 0.2); color: #10B981;">GREEN</div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">SELinux Policy Engine</div>
+                                <div class="metric-sub">Mandatory Access Control Active</div>
+                            </div>
+                            <div class="badge-pill" style="background: rgba(16, 185, 129, 0.2); color: #10B981;">ENFORCING</div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Storage Encryption</div>
+                                <div class="metric-sub">File-Based Encryption (FBE) AES-256</div>
+                            </div>
+                            <div class="badge-pill" style="background: rgba(16, 185, 129, 0.2); color: #10B981;">ACTIVE</div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Root &amp; Superuser</div>
+                                <div class="metric-sub">KernelSU / Magisk telemetry</div>
+                            </div>
+                            <div class="badge-pill" style="background: rgba(100, 116, 139, 0.2); color: #94A3B8;">NOT INSTALLED</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. PRIVACY CENTER -->
+                <div class="screen-view" id="view-privacy">
+                    <div class="app-header">
+                        <div class="app-title">Privacy Center</div>
+                        <div class="app-subtitle">Sensor Disconnects &amp; Audit Logs</div>
+                    </div>
+
+                    <div class="elyra-card" style="background: rgba(45, 91, 255, 0.12);">
+                        <div style="font-weight: 600; font-size: 13px;">Zero Non-Consensual Telemetry</div>
+                        <div style="font-size: 11px; color: var(--ui-text-sub); margin-top: 2px;">
+                            Elyra OS transmits 0 diagnostic packets without explicit consent.
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; color: var(--ui-text-sub); margin: 6px 0;">HARDWARE KILL-SWITCHES</div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Camera Sensor Access</div>
+                                <div class="metric-sub">Mute optical camera sensor</div>
+                            </div>
+                            <div class="switch-toggle on" id="toggle-camera" onclick="toggleSensor('camera')">
+                                <div class="switch-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Microphone Access</div>
+                                <div class="metric-sub">Mute audio hardware inputs</div>
+                            </div>
+                            <div class="switch-toggle on" id="toggle-mic" onclick="toggleSensor('mic')">
+                                <div class="switch-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Clipboard Access Auditor</div>
+                                <div class="metric-sub">Apps reading copied passwords</div>
+                            </div>
+                            <div class="badge-pill" style="background: rgba(45, 91, 255, 0.2); color: var(--elyra-primary-dark);">2 READS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. FILES EXPLORER -->
+                <div class="screen-view" id="view-files">
+                    <div class="app-header">
+                        <div class="app-title">Elyra Files</div>
+                        <div class="app-subtitle">Internal Storage &amp; Secure Vault</div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <span style="font-size: 13px; font-weight: 600;">Internal Storage</span>
+                            <span style="font-size: 12px; color: var(--ui-text-sub);">38.4 GB / 128 GB</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-fill" style="width: 30%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" style="background: rgba(45, 91, 255, 0.12); cursor: pointer;">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">🔐 Secure Vault</div>
+                                <div class="metric-sub">Biometric hardware encrypted folder</div>
+                            </div>
+                            <div class="badge-pill" style="background: var(--elyra-primary); color: #fff;">LOCKED</div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; color: var(--ui-text-sub); margin: 6px 0;">RECENT FOLDERS</div>
+
+                    <div class="elyra-card" style="padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 20px;">📁</span>
+                        <div>
+                            <div style="font-size: 13px; font-weight: 500;">Downloads</div>
+                            <div style="font-size: 11px; color: var(--ui-text-sub);">14 files • 1.2 GB</div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" style="padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 20px;">📁</span>
+                        <div>
+                            <div style="font-size: 13px; font-weight: 500;">DCIM / Camera</div>
+                            <div style="font-size: 11px; color: var(--ui-text-sub);">342 items • 8.4 GB</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. UPDATER SCREEN -->
+                <div class="screen-view" id="view-updater">
+                    <div class="app-header">
+                        <div class="app-title">System Updater</div>
+                        <div class="app-subtitle">Seamless A/B Dual-Slot OTA</div>
+                    </div>
+
+                    <div class="elyra-card">
+                        <div style="font-size: 18px; font-weight: 700;">Elyra OS 1.0.0-alpha</div>
+                        <div style="font-size: 12px; color: var(--ui-text-sub); margin-top: 4px;">
+                            Android 15 (API 35) • Patch: 2026-10-01
+                        </div>
+                        <div style="font-size: 11px; color: var(--elyra-success); margin-top: 6px; font-weight: 600;">
+                            ● Active Partition: Slot A
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" style="text-align: center; padding: 24px 16px;">
+                        <div style="font-size: 32px; margin-bottom: 8px;">✓</div>
+                        <div style="font-weight: 600; font-size: 15px;">Your system is up to date</div>
+                        <div style="font-size: 12px; color: var(--ui-text-sub); margin-top: 4px;">
+                            Automated rollback protection verified.
+                        </div>
+                        <button class="action-btn-primary" onclick="simulateUpdateCheck()">Check for Updates</button>
+                    </div>
+                </div>
+
+                <!-- 6. SETTINGS SCREEN -->
+                <div class="screen-view" id="view-settings">
+                    <div class="app-header">
+                        <div class="app-title">Settings</div>
+                        <div class="app-subtitle">Preferences &amp; Customization</div>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; color: var(--elyra-primary-dark); margin: 6px 0;">ELYRA EXPERIENCE</div>
+
+                    <div class="elyra-card">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">Pure AMOLED Black</div>
+                                <div class="metric-sub">True #000000 surface mode</div>
+                            </div>
+                            <div class="switch-toggle on" id="toggle-amoled-setting" onclick="toggleAmoledSetting()">
+                                <div class="switch-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" onclick="switchScreen('security')" style="cursor: pointer;">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">🔒 Security Center</div>
+                                <div class="metric-sub">Verified boot, SELinux, encryption</div>
+                            </div>
+                            <span style="font-size: 18px; color: var(--ui-text-sub);">›</span>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" onclick="switchScreen('privacy')" style="cursor: pointer;">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">🛡️ Privacy Center</div>
+                                <div class="metric-sub">Hardware kill-switches &amp; telemetry</div>
+                            </div>
+                            <span style="font-size: 18px; color: var(--ui-text-sub);">›</span>
+                        </div>
+                    </div>
+
+                    <div class="elyra-card" onclick="switchScreen('updater')" style="cursor: pointer;">
+                        <div class="metric-row">
+                            <div>
+                                <div class="metric-title">⚡ System Updates</div>
+                                <div class="metric-sub">Elyra OS 1.0.0-alpha • A/B Engine</div>
+                            </div>
+                            <span style="font-size: 18px; color: var(--ui-text-sub);">›</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- APP DRAWER OVERLAY (Launched from Home) -->
+                <div class="drawer-overlay" id="app-drawer" onclick="if(event.target===this) toggleAppDrawer(false)">
+                    <div class="drawer-sheet">
+                        <div class="drawer-handle"></div>
+                        <div class="drawer-search">
+                            <span>🔍 Search installed apps…</span>
+                        </div>
+                        <div class="apps-grid">
+                            <div class="app-item" onclick="switchScreen('security'); toggleAppDrawer(false);">
+                                <div class="app-item-icon">🔒</div>
+                                <div class="app-item-label">Security</div>
+                            </div>
+                            <div class="app-item" onclick="switchScreen('privacy'); toggleAppDrawer(false);">
+                                <div class="app-item-icon">🛡️</div>
+                                <div class="app-item-label">Privacy</div>
+                            </div>
+                            <div class="app-item" onclick="switchScreen('files'); toggleAppDrawer(false);">
+                                <div class="app-item-icon">📁</div>
+                                <div class="app-item-label">Files</div>
+                            </div>
+                            <div class="app-item" onclick="switchScreen('updater'); toggleAppDrawer(false);">
+                                <div class="app-item-icon">⚡</div>
+                                <div class="app-item-label">Updater</div>
+                            </div>
+                            <div class="app-item" onclick="switchScreen('settings'); toggleAppDrawer(false);">
+                                <div class="app-item-icon">⚙️</div>
+                                <div class="app-item-label">Settings</div>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-item-icon">📞</div>
+                                <div class="app-item-label">Phone</div>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-item-icon">💬</div>
+                                <div class="app-item-label">Messages</div>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-item-icon">📷</div>
+                                <div class="app-item-label">Camera</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Gesture Bar -->
+            <div class="gesture-bar-container" onclick="switchScreen('launcher')">
+                <div class="gesture-pill"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Live Clock Update
+    function updateClocks() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        const dateStr = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+        
+        document.getElementById('status-clock').innerText = timeStr;
+        const lClock = document.getElementById('launcher-clock-display');
+        const lDate = document.getElementById('launcher-date-display');
+        if (lClock) lClock.innerText = timeStr;
+        if (lDate) lDate.innerText = dateStr;
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
+
+    // Screen Switching
+    function switchScreen(screenName) {
+        document.querySelectorAll('.screen-view').forEach(el => el.classList.remove('active'));
+        const target = document.getElementById('view-' + screenName);
+        if (target) target.classList.add('active');
+
+        // Update nav pills in sidebar
+        const pills = document.querySelectorAll('#screen-nav .btn-pill');
+        pills.forEach(p => p.classList.remove('active'));
+        const indexMap = { launcher: 0, security: 1, privacy: 2, files: 3, updater: 4, settings: 5 };
+        if (pills[indexMap[screenName]]) pills[indexMap[screenName]].classList.add('active');
+    }
+
+    // Theme Management
+    function setTheme(theme) {
+        const phone = document.getElementById('phone-screen');
+        phone.className = 'screen theme-' + theme;
+
+        const pills = document.querySelectorAll('#theme-nav .btn-pill');
+        pills.forEach(p => p.classList.remove('active'));
+        const themeMap = { light: 0, dark: 1, amoled: 2 };
+        if (pills[themeMap[theme]]) pills[themeMap[theme]].classList.add('active');
+
+        const amoledToggle = document.getElementById('toggle-amoled-setting');
+        if (amoledToggle) {
+            if (theme === 'amoled') amoledToggle.classList.add('on');
+            else amoledToggle.classList.remove('on');
+        }
+    }
+
+    function toggleAmoledSetting() {
+        const amoledToggle = document.getElementById('toggle-amoled-setting');
+        const isOn = amoledToggle.classList.toggle('on');
+        setTheme(isOn ? 'amoled' : 'dark');
+    }
+
+    // App Drawer Toggle
+    function toggleAppDrawer(open) {
+        const drawer = document.getElementById('app-drawer');
+        if (open) drawer.classList.add('open');
+        else drawer.classList.remove('open');
+    }
+
+    // Hardware Sensor Kill-Switches
+    let sensors = { camera: true, mic: true };
+    function toggleSensor(type) {
+        sensors[type] = !sensors[type];
+        const btn = document.getElementById('toggle-' + type);
+        btn.classList.toggle('on', sensors[type]);
+
+        const dot = document.getElementById('dot-' + type);
+        dot.classList.toggle('active', sensors[type]);
+    }
+
+    // Boot Grade Simulator
+    function setBootGrade(grade) {
+        const avbBadge = document.getElementById('avb-badge');
+        const heroTitle = document.getElementById('security-hero-title');
+        const heroSub = document.getElementById('security-hero-sub');
+        const heroGlyph = document.getElementById('security-hero-glyph');
+        const bannerCard = document.getElementById('security-banner-card');
+        const avbSub = document.getElementById('avb-metric-sub');
+
+        if (grade === 'green') {
+            avbBadge.innerText = 'GREEN';
+            avbBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+            avbBadge.style.color = '#10B981';
+            heroTitle.innerText = 'Verified & Protected';
+            heroSub.innerText = 'Titan M2 Root of Trust Enforced';
+            heroGlyph.innerText = '🛡️';
+            heroGlyph.style.color = '#10B981';
+            heroGlyph.style.background = 'rgba(16, 185, 129, 0.15)';
+            bannerCard.style.display = 'none';
+            avbSub.innerText = 'Bootloader locked with official Google signature';
+        } else if (grade === 'yellow') {
+            avbBadge.innerText = 'YELLOW';
+            avbBadge.style.background = 'rgba(245, 158, 11, 0.2)';
+            avbBadge.style.color = '#F59E0B';
+            heroTitle.innerText = 'Custom Root of Trust Active';
+            heroSub.innerText = 'Locked with User AVB Key';
+            heroGlyph.innerText = '🔒';
+            heroGlyph.style.color = '#F59E0B';
+            heroGlyph.style.background = 'rgba(245, 158, 11, 0.15)';
+            bannerCard.style.display = 'block';
+            avbSub.innerText = 'Titan M2 verifies custom pkmd.bin key';
+        } else if (grade === 'orange') {
+            avbBadge.innerText = 'ORANGE';
+            avbBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+            avbBadge.style.color = '#EF4444';
+            heroTitle.innerText = 'Bootloader Unlocked';
+            heroSub.innerText = 'Software modifications permitted';
+            heroGlyph.innerText = '⚠️';
+            heroGlyph.style.color = '#EF4444';
+            heroGlyph.style.background = 'rgba(239, 68, 68, 0.15)';
+            bannerCard.style.display = 'block';
+            avbSub.innerText = 'Bootloader state: ro.boot.flash.locked = 0';
+        }
+    }
+
+    function simulateUpdateCheck() {
+        const btn = event.target;
+        btn.innerText = 'Checking manifest…';
+        setTimeout(() => {
+            btn.innerText = 'System is Up to Date (Checked)';
+        }, 800);
+    }
+</script>
+
+</body>
+</html>
