@@ -28,7 +28,9 @@
   - Cloud CI/CD pipeline ran and passed 100% (Verify Tokens, Package Distribution, Build Apps, Deploy Simulator)
   - Successfully deployed and verified live public simulator at `https://jojin1709.github.io/elyra-os/`
   - Cloud artifact `elyra-os-vendor-bundle.zip` generated and available on GitHub
-- In progress: Ready for physical device testing or next modules
+  - Launched physical Android phone emulator `Pixel_6` locally with root ADB access (`emulator-5554`)
+  - Configured automated cloud partition builder for bootable `elyra-system.img`
+- In progress: Cloud compilation of bootable `elyra-system.img` partition image (GitHub Actions run 40545872296)
 - Blocked: None
-- Next: Physical device flashing, emulator testing, or advanced custom modules (Gaming mode HUD, Terminal).
+- Next: Mount `elyra-system.img` on local `Pixel_6` emulator via `emulator -avd Pixel_6 -system elyra-system.img`.
 
